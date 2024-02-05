@@ -3,11 +3,13 @@ import path from "path";
 import { cd, ls } from "./nwd.js";
 
 import { createInterface } from "node:readline/promises";
-import { fileURLToPath } from "url";
+
 import os from "os";
-import { MESSAGES } from "./constants.js";
+import { BROTLI_ACTIONS, MESSAGES } from "./constants.js";
 import { add, cat, copyFile, moveFile, removeFile, renameFile } from "./files.js";
 import { system } from "./system.js";
+import { createHashForFile } from "./hash.js";
+import { brotli } from "./brotli.js";
 
 export class App {
   start = async () => {
@@ -98,5 +100,26 @@ export class App {
 
   os = (args) => {
     system(args[0]);
+  };
+
+  hash = async (args) => {
+    const pathToFile = this._resolvePath(args[0]);
+    await createHashForFile(pathToFile);
+  };
+
+  compress = async (args) => {
+    const pathToFile = this._resolvePath(args[0]);
+    const pathToCompressedFile = this._resolvePath(args[1]);
+    await brotli(pathToFile, pathToCompressedFile, BROTLI_ACTIONS.COMPRESS);
+  };
+
+  decompress = async (args) => {
+    const pathToFile = this._resolvePath(args[0]);
+    const pathToCompressedFile = this._resolvePath(args[1]);
+    await brotli(pathToFile, pathToCompressedFile, BROTLI_ACTIONS.DECOMPRESS);
+  };
+
+  [".exit"] = () => {
+    process.exit();
   };
 }
