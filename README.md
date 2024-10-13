@@ -1,6 +1,6 @@
 1. Task - https://github.com/AlreadyBored/nodejs-assignments/blob/main/assignments/file-manager/assignment.md
 2. Repository - https://github.com/Ilyxxxaa/nodeJS-file-manager
-3. 06.02.2024/ 06.02.2024
+3. 13.10.2024/ 15.10.2024
 4. Score 330/330
 
 #### All tasks in the main branch of this repository
